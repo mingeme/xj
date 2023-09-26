@@ -29,13 +29,16 @@ func (c *Client) Do(method string, path string, body io.Reader, response any) er
 		req.Header.Set("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
 	}
 
-	cookies, err := c.cookieStore.Get(req.Host)
-	if err != nil {
-		return err
+	if !strings.HasPrefix(path, "login") {
+		cookies, err := c.cookieStore.Get(req.Host)
+		if err != nil {
+			return err
+		}
+		for _, cookie := range cookies {
+			req.AddCookie(cookie)
+		}
 	}
-	for _, cookie := range cookies {
-		req.AddCookie(cookie)
-	}
+
 	resp, err := c.client.Do(req)
 	if err != nil {
 		return err
