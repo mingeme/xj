@@ -39,8 +39,9 @@ func NewCmdJobLs(c *cmdcontext.Context) *cobra.Command {
 			fmt.Println(t.Render())
 		},
 	}
-	lsCmd.Flags().StringVarP(&opts.Handler, "handler", "H", "", "search executor handler")
-	lsCmd.Flags().StringVarP(&opts.Desc, "desc", "D", "", "search by job description")
+	lsCmd.Flags().StringVarP(&opts.Handler, "handler", "x", "", "search executor handler")
+	lsCmd.Flags().StringVarP(&opts.Desc, "desc", "d", "", "search by job description")
+	lsCmd.Flags().IntVarP(&opts.Group, "group", "g", 0, "search by job group")
 
 	return lsCmd
 }
