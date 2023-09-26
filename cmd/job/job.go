@@ -27,9 +27,9 @@ func NewCmdTask(c *cmdcontext.Context) *cobra.Command {
 				return
 			}
 			t := table.NewWriter()
-			t.AppendHeader(table.Row{"#", "Job Desc", "Executor Handler"})
+			t.AppendHeader(table.Row{"#", "Job Desc", "Executor Handler", "Job Cron", "Author"})
 			for _, data := range page.Data {
-				t.AppendRow([]interface{}{data.ID, data.JobDesc, data.ExecutorHandler})
+				t.AppendRow([]interface{}{data.ID, data.JobDesc, data.ExecutorHandler, data.JobCron, data.Author})
 			}
 			fmt.Println(t.Render())
 		},
