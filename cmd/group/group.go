@@ -17,9 +17,9 @@ func NewCmdGroup(c *cmdcontext.Context) *cobra.Command {
 
 	lsCmd := &cobra.Command{
 		Use:   "ls",
-		Short: "执行器查询",
+		Short: "search job group",
 		Run: func(cmd *cobra.Command, args []string) {
-			page, err := api.GroupPage(c.ApiClient(), &api.GroupOptions{Start: 0, Length: 10})
+			page, err := api.GroupPage(c.ApiClient(), api.NewGroupOptions())
 			if err != nil {
 				fmt.Printf("%+v", err)
 				return

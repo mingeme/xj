@@ -25,6 +25,13 @@ type GroupOptions struct {
 	Length int    `url:"length"`
 }
 
+func NewGroupOptions() *GroupOptions {
+	return &GroupOptions{
+		Start:  0,
+		Length: 10,
+	}
+}
+
 func GroupPage(client *Client, opts *GroupOptions) (*GroupResponse, error) {
 	values := urlcodec.StructToValues(opts)
 	var response GroupResponse

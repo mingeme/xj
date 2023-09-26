@@ -15,7 +15,7 @@ import (
 
 func NewCmdAuth(c *cmdcontext.Context) *cobra.Command {
 	command := &cobra.Command{
-		Use:   "auth <domain> <username>",
+		Use:   "auth {<domain> <username>}",
 		Short: "Authenticate for domain",
 		Args:  valid.ExpectedArgs(),
 		Run: func(cmd *cobra.Command, args []string) {
