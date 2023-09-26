@@ -10,20 +10,6 @@ var ErrCookieFileNotFound = fmt.Errorf("cookie file not found")
 
 func Dir() string {
 	d, _ := os.UserHomeDir()
-	//
-	//// Check if directory already exists
-	//_, err := os.Stat(path)
-	//if err == nil {
-	//	return path
-	//}
-	//
-	//// Create the directory
-	//err = os.MkdirAll(path, 0755)
-	//if err != nil {
-	//	fmt.Fprintf(os.Stderr, "Failed to create config directory: %v", err)
-	//	return path
-	//}
-
 	return filepath.Join(d, ".config", "xj")
 }
 
