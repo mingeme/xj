@@ -8,9 +8,10 @@ import (
 
 var ErrBadCredentials = fmt.Errorf("invalid username or password")
 
-type LoginResponse struct {
-	Code int    `json:"code"`
-	Msg  string `json:"msg"`
+type BaseResponse struct {
+	Code    int    `json:"code"`
+	Msg     string `json:"msg"`
+	Content string `json:"content"`
 }
 
 func Login(client *Client, username string, password string) error {
@@ -25,7 +26,7 @@ func Login(client *Client, username string, password string) error {
 	}
 
 	values := urlcodec.StructToValues(loginRequest)
-	var response LoginResponse
+	var response BaseResponse
 	err := client.Post("login", strings.NewReader(values.Encode()), &response)
 	if err != nil {
 		return err

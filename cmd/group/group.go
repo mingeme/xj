@@ -9,14 +9,14 @@ import (
 )
 
 func NewCmdGroup(c *cmdcontext.Context) *cobra.Command {
-	groupCmd := &cobra.Command{
+	cmd := &cobra.Command{
 		Use:     "group",
 		Aliases: []string{"g"},
 		Short:   "Management for job group",
 	}
 
-	groupCmd.AddCommand(NewCmdGroupLs(c))
-	return groupCmd
+	cmd.AddCommand(NewCmdGroupLs(c))
+	return cmd
 }
 
 func NewCmdGroupLs(c *cmdcontext.Context) *cobra.Command {
