@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/tradlwa/xj/api/convert"
+	"github.com/tradlwa/xj/api/urlcodec"
 	"strings"
 )
 
@@ -13,7 +13,7 @@ type JobOptions struct {
 }
 
 func JobPage(client *Client, opts *JobOptions) {
-	values, _ := convert.StructToValues(opts)
+	values := urlcodec.StructToValues(opts)
 	var response any
 	client.Post("jobgroup/pageList", strings.NewReader(values.Encode()), &response)
 }

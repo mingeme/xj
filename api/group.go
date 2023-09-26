@@ -1,8 +1,7 @@
 package api
 
 import (
-	"fmt"
-	"github.com/tradlwa/xj/api/convert"
+	"github.com/tradlwa/xj/api/urlcodec"
 	"strings"
 )
 
@@ -26,12 +25,11 @@ type GroupOptions struct {
 	Length int    `url:"length"`
 }
 
-func GroupPage(client *Client, opts *GroupOptions) *GroupResponse {
-	values, _ := convert.StructToValues(opts)
+func GroupPage(client *Client, opts *GroupOptions) (*GroupResponse, error) {
+	values := urlcodec.StructToValues(opts)
 	var response GroupResponse
 	if err := client.Post("jobgroup/pageList", strings.NewReader(values.Encode()), &response); err != nil {
-		fmt.Printf("%+v", err)
-		return nil
+		return nil, err
 	}
-	return &response
+	return &response, nil
 }

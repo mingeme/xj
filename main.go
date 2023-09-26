@@ -1,14 +1,19 @@
 package main
 
 import (
-	"github.com/tradlwa/xj/api"
+	"fmt"
 	"github.com/tradlwa/xj/cmd/root"
-	"github.com/tradlwa/xj/cmdutil"
+	"github.com/tradlwa/xj/cmdcontext"
+	"github.com/tradlwa/xj/config"
 )
 
 func main() {
-	client := api.NewClient("http://192.168.201.3:8084")
-	context := &cmdutil.Context{ApiClient: client}
+	envConfig, err := config.ReadConfig()
+	if err != nil {
+		fmt.Printf("cannot read config file %v", err)
+		return
+	}
+	context := &cmdcontext.Context{EnvConfig: envConfig}
 	cmdRoot := root.NewCmdRoot(context)
 	_ = cmdRoot.Execute()
 }

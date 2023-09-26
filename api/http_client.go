@@ -25,6 +25,10 @@ func (c *Client) Do(method string, path string, body io.Reader, response any) er
 		return err
 	}
 
+	if method == http.MethodPost {
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+	}
+
 	cookies, err := c.cookieStore.Get(req.Host)
 	if err != nil {
 		return err
@@ -40,18 +44,20 @@ func (c *Client) Do(method string, path string, body io.Reader, response any) er
 	success := resp.StatusCode >= 200 && resp.StatusCode < 300
 	if !success {
 		defer resp.Body.Close()
-		return fmt.Errorf("failed request %+v", resp)
+		return fmt.Errorf("failed request: %+v", resp)
+	}
+	cookieHeader := resp.Header.Get("Set-Cookie")
+	if len(cookieHeader) > 0 {
+		if err := c.cookieStore.Save(req.Host, resp.Cookies()[0]); err != nil {
+			return err
+		}
 	}
 
 	b, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}
-	err = json.Unmarshal(b, &response)
-	if err != nil {
-		return err
-	}
-	return nil
+	return json.Unmarshal(b, &response)
 }
 
 func (c *Client) Post(path string, body io.Reader, response any) error {

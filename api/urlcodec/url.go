@@ -1,4 +1,4 @@
-package convert
+package urlcodec
 
 import (
 	"net/url"
@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func StructToValues(data interface{}) (url.Values, error) {
+func StructToValues(data interface{}) url.Values {
 	values := url.Values{}
 	v := reflect.ValueOf(data)
 
@@ -34,5 +34,5 @@ func StructToValues(data interface{}) (url.Values, error) {
 		}
 	}
 
-	return values, nil
+	return values
 }

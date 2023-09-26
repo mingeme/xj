@@ -3,36 +3,32 @@ package config
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 var ErrCookieFileNotFound = fmt.Errorf("cookie file not found")
 
-type Config struct {
-	Domain string `yaml:"domain"`
-}
-
 func Dir() string {
-	dirPath := os.Getenv("HOME") + "/.config/xj"
+	d, _ := os.UserHomeDir()
+	//
+	//// Check if directory already exists
+	//_, err := os.Stat(path)
+	//if err == nil {
+	//	return path
+	//}
+	//
+	//// Create the directory
+	//err = os.MkdirAll(path, 0755)
+	//if err != nil {
+	//	fmt.Fprintf(os.Stderr, "Failed to create config directory: %v", err)
+	//	return path
+	//}
 
-	// Check if directory already exists
-	_, err := os.Stat(dirPath)
-	if err == nil {
-		return dirPath
-	}
-
-	// Create the directory
-	err = os.MkdirAll(dirPath, 0755)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to create config directory: %v", err)
-		return dirPath
-	}
-
-	return dirPath
+	return filepath.Join(d, ".config", "xj")
 }
 
 func ReadCookieFile() ([]byte, error) {
-	filename := Dir() + "/cookies.json"
-
+	filename := CookieFilePath()
 	_, err := os.Stat(filename)
 	if os.IsNotExist(err) {
 		return nil, ErrCookieFileNotFound
@@ -41,4 +37,8 @@ func ReadCookieFile() ([]byte, error) {
 		return nil, err
 	}
 	return os.ReadFile(filename)
+}
+
+func CookieFilePath() string {
+	return filepath.Join(Dir(), "cookies.json")
 }

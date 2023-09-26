@@ -5,10 +5,10 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
 	"github.com/tradlwa/xj/api"
-	"github.com/tradlwa/xj/cmdutil"
+	"github.com/tradlwa/xj/cmdcontext"
 )
 
-func NewCmdGroup(c *cmdutil.Context) *cobra.Command {
+func NewCmdGroup(c *cmdcontext.Context) *cobra.Command {
 	groupCmd := &cobra.Command{
 		Use:     "group",
 		Aliases: []string{"g"},
@@ -19,7 +19,11 @@ func NewCmdGroup(c *cmdutil.Context) *cobra.Command {
 		Use:   "ls",
 		Short: "执行器查询",
 		Run: func(cmd *cobra.Command, args []string) {
-			page := api.GroupPage(c.ApiClient, &api.GroupOptions{Start: 0, Length: 10})
+			page, err := api.GroupPage(c.ApiClient(), &api.GroupOptions{Start: 0, Length: 10})
+			if err != nil {
+				fmt.Printf("%+v", err)
+				return
+			}
 			t := table.NewWriter()
 			t.AppendHeader(table.Row{"#", "App Name", "Title"})
 			for _, data := range page.Data {
