@@ -9,13 +9,18 @@ import (
 	"os"
 )
 
-func NewCmdTask(c *cmdcontext.Context) *cobra.Command {
+func NewCmdJob(c *cmdcontext.Context) *cobra.Command {
 	taskCmd := &cobra.Command{
 		Use:     "job",
 		Aliases: []string{"j"},
 		Short:   "Management for job",
 	}
 
+	taskCmd.AddCommand(NewCmdJobLs(c))
+	return taskCmd
+}
+
+func NewCmdJobLs(c *cmdcontext.Context) *cobra.Command {
 	opts := api.NewJobOptions()
 	lsCmd := &cobra.Command{
 		Use:   "ls",
@@ -36,6 +41,5 @@ func NewCmdTask(c *cmdcontext.Context) *cobra.Command {
 	}
 	lsCmd.Flags().StringVarP(&opts.Handler, "handler", "H", "", "search executor handler")
 
-	taskCmd.AddCommand(lsCmd)
-	return taskCmd
+	return lsCmd
 }

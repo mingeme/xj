@@ -23,7 +23,7 @@ func NewCmdRoot(c *cmdcontext.Context) *cobra.Command {
 
 	cmd.AddCommand(auth.NewCmdAuth(c))
 	cmd.AddCommand(group.NewCmdGroup(c))
-	cmd.AddCommand(job.NewCmdTask(c))
+	cmd.AddCommand(job.NewCmdJob(c))
 
 	return cmd
 }

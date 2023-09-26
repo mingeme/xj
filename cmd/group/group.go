@@ -15,7 +15,12 @@ func NewCmdGroup(c *cmdcontext.Context) *cobra.Command {
 		Short:   "Management for job group",
 	}
 
-	lsCmd := &cobra.Command{
+	groupCmd.AddCommand(NewCmdGroupLs(c))
+	return groupCmd
+}
+
+func NewCmdGroupLs(c *cmdcontext.Context) *cobra.Command {
+	return &cobra.Command{
 		Use:   "ls",
 		Short: "search job group",
 		Run: func(cmd *cobra.Command, args []string) {
@@ -32,7 +37,4 @@ func NewCmdGroup(c *cmdcontext.Context) *cobra.Command {
 			fmt.Println(t.Render())
 		},
 	}
-
-	groupCmd.AddCommand(lsCmd)
-	return groupCmd
 }
