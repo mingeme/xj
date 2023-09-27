@@ -17,7 +17,7 @@ func NewCmdJob(c *cmdcontext.Context) *cobra.Command {
 	}
 
 	cmd.AddCommand(NewCmdJobLs(c))
-	cmd.AddCommand(NewCmdTrigger(c))
+	cmd.AddCommand(NewCmdJobTrigger(c))
 	return cmd
 }
 
@@ -47,7 +47,7 @@ func NewCmdJobLs(c *cmdcontext.Context) *cobra.Command {
 	return cmd
 }
 
-func NewCmdTrigger(c *cmdcontext.Context) *cobra.Command {
+func NewCmdJobTrigger(c *cmdcontext.Context) *cobra.Command {
 	opts := api.NewTriggerOptions()
 	cmd := &cobra.Command{
 		Use:     "trigger",
@@ -67,7 +67,7 @@ func NewCmdTrigger(c *cmdcontext.Context) *cobra.Command {
 		},
 	}
 	cmd.Flags().IntVarP(&opts.ID, "id", "i", -1, "job id")
-	cmd.Flags().StringVar(&opts.Param, "param", "p", "job parameter")
+	cmd.Flags().StringVar(&opts.Param, "param", "", "job parameter")
 	_ = cmd.MarkFlagRequired("id")
 	return cmd
 }
