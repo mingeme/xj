@@ -6,7 +6,7 @@ import (
 
 type GroupData struct {
 	ID           int      `json:"id"`
-	AppName      string   `json:"appname"`
+	App          string   `json:"appname"`
 	Title        string   `json:"title"`
 	AddressType  int      `json:"addressType"`
 	AddressList  string   `json:"addressList"`

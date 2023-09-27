@@ -20,11 +20,12 @@ func NewCmdGroup(c *cmdcontext.Context) *cobra.Command {
 }
 
 func NewCmdGroupLs(c *cmdcontext.Context) *cobra.Command {
-	return &cobra.Command{
+	opts := api.NewGroupOptions()
+	cmd := &cobra.Command{
 		Use:   "ls",
 		Short: "search job group",
 		Run: func(cmd *cobra.Command, args []string) {
-			page, err := api.GroupPage(c.ApiClient(), api.NewGroupOptions())
+			page, err := api.GroupPage(c.ApiClient(), opts)
 			if err != nil {
 				fmt.Printf("%+v", err)
 				return
@@ -32,9 +33,15 @@ func NewCmdGroupLs(c *cmdcontext.Context) *cobra.Command {
 			t := table.NewWriter()
 			t.AppendHeader(table.Row{"#", "App Name", "Title"})
 			for _, data := range page.Data {
-				t.AppendRow([]any{data.ID, data.AppName, data.Title})
+				t.AppendRow([]any{data.ID, data.App, data.Title})
 			}
 			fmt.Println(t.Render())
 		},
 	}
+	cmd.Flags().StringVarP(&opts.App, "app", "a", "", "app name")
+	cmd.Flags().StringVarP(&opts.Title, "title", "t", "", "title")
+	cmd.Flags().IntVarP(&opts.Start, "start", "s", 0, "page start")
+	cmd.Flags().IntVarP(&opts.Length, "len", "l", 10, "page length")
+
+	return cmd
 }
