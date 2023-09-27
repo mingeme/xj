@@ -1,8 +1,9 @@
 package api
 
 import (
-	"github.com/tradlwa/xj/api/urlcodec"
 	"strings"
+
+	"github.com/tradlwa/xj/api/urlcodec"
 )
 
 type JobData struct {
@@ -41,6 +42,7 @@ func (d JobData) Status() string {
 }
 
 type JobOptions struct {
+	ID      int    `url:"id"`
 	Group   int    `url:"jobGroup"`
 	Status  int    `url:"triggerStatus"`
 	Desc    string `url:"jobDesc"`
@@ -64,4 +66,18 @@ func JobPage(client *Client, opts *JobOptions) (*PageResponse[JobData], error) {
 		return nil, err
 	}
 	return &response, nil
+}
+
+func JobStart(client *Client, opts *JobOptions) (*BaseResponse, error) {
+	values := urlcodec.StructToValues(opts)
+	var response BaseResponse
+	err := client.Post("jobinfo/start", strings.NewReader(values.Encode()), &response)
+	return &response, err
+}
+
+func JobStop(client *Client, opts *JobOptions) (*BaseResponse, error) {
+	values := urlcodec.StructToValues(opts)
+	var response BaseResponse
+	err := client.Post("jobinfo/stop", strings.NewReader(values.Encode()), &response)
+	return &response, err
 }

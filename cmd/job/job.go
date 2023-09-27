@@ -2,11 +2,12 @@ package job
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
 	"github.com/tradlwa/xj/api"
 	"github.com/tradlwa/xj/cmdcontext"
-	"os"
 )
 
 func NewCmdJob(c *cmdcontext.Context) *cobra.Command {
@@ -18,6 +19,8 @@ func NewCmdJob(c *cmdcontext.Context) *cobra.Command {
 
 	cmd.AddCommand(NewCmdJobLs(c))
 	cmd.AddCommand(NewCmdJobTrigger(c))
+	cmd.AddCommand(NewCmdJobStart(c))
+	cmd.AddCommand(NewCmdJobStop(c))
 	return cmd
 }
 
@@ -68,6 +71,52 @@ func NewCmdJobTrigger(c *cmdcontext.Context) *cobra.Command {
 	}
 	cmd.Flags().IntVarP(&opts.ID, "id", "i", -1, "job id")
 	cmd.Flags().StringVar(&opts.Param, "param", "", "job parameter")
+	_ = cmd.MarkFlagRequired("id")
+	return cmd
+}
+
+func NewCmdJobStart(c *cmdcontext.Context) *cobra.Command {
+	opts := api.NewJobOptions()
+	cmd := &cobra.Command{
+		Use:   "start",
+		Short: "start job",
+		Run: func(cmd *cobra.Command, args []string) {
+			response, err := api.JobStart(c.ApiClient(), opts)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "%v", err)
+				return
+			}
+			if response.Code == 200 {
+				fmt.Println("it's started")
+			} else {
+				fmt.Printf("%v", response)
+			}
+		},
+	}
+	cmd.Flags().IntVarP(&opts.ID, "id", "i", -1, "job id")
+	_ = cmd.MarkFlagRequired("id")
+	return cmd
+}
+
+func NewCmdJobStop(c *cmdcontext.Context) *cobra.Command {
+	opts := api.NewJobOptions()
+	cmd := &cobra.Command{
+		Use:   "stop",
+		Short: "stop job",
+		Run: func(cmd *cobra.Command, args []string) {
+			response, err := api.JobStop(c.ApiClient(), opts)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "%v", err)
+				return
+			}
+			if response.Code == 200 {
+				fmt.Println("it's stopped")
+			} else {
+				fmt.Printf("%v", response)
+			}
+		},
+	}
+	cmd.Flags().IntVarP(&opts.ID, "id", "i", -1, "job id")
 	_ = cmd.MarkFlagRequired("id")
 	return cmd
 }

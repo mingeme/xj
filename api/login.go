@@ -8,12 +8,6 @@ import (
 
 var ErrBadCredentials = fmt.Errorf("invalid username or password")
 
-type BaseResponse struct {
-	Code    int    `json:"code"`
-	Msg     string `json:"msg"`
-	Content string `json:"content"`
-}
-
 func Login(client *Client, username string, password string) error {
 	loginRequest := struct {
 		Username   string `url:"userName"`
