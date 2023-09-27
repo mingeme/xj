@@ -1,8 +1,6 @@
 package api
 
 import (
-	"strings"
-
 	"github.com/tradlwa/xj/api/urlcodec"
 )
 
@@ -60,24 +58,21 @@ func NewJobOptions() *JobOptions {
 }
 
 func JobPage(client *Client, opts *JobOptions) (*PageResponse[JobData], error) {
-	values := urlcodec.StructToValues(opts)
 	var response PageResponse[JobData]
-	if err := client.Post("jobinfo/pageList", strings.NewReader(values.Encode()), &response); err != nil {
+	if err := client.Post("jobinfo/pageList", urlcodec.StructToStringReader(opts), &response); err != nil {
 		return nil, err
 	}
 	return &response, nil
 }
 
 func JobStart(client *Client, opts *JobOptions) (*BaseResponse, error) {
-	values := urlcodec.StructToValues(opts)
 	var response BaseResponse
-	err := client.Post("jobinfo/start", strings.NewReader(values.Encode()), &response)
+	err := client.Post("jobinfo/start", urlcodec.StructToStringReader(opts), &response)
 	return &response, err
 }
 
 func JobStop(client *Client, opts *JobOptions) (*BaseResponse, error) {
-	values := urlcodec.StructToValues(opts)
 	var response BaseResponse
-	err := client.Post("jobinfo/stop", strings.NewReader(values.Encode()), &response)
+	err := client.Post("jobinfo/stop", urlcodec.StructToStringReader(opts), &response)
 	return &response, err
 }

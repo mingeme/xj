@@ -4,9 +4,10 @@ import (
 	"net/url"
 	"reflect"
 	"strconv"
+	"strings"
 )
 
-func StructToValues(data interface{}) url.Values {
+func StructToValues(data any) url.Values {
 	values := url.Values{}
 	v := reflect.ValueOf(data)
 
@@ -35,4 +36,8 @@ func StructToValues(data interface{}) url.Values {
 	}
 
 	return values
+}
+
+func StructToStringReader(data any) *strings.Reader {
+	return strings.NewReader(StructToValues(data).Encode())
 }

@@ -32,7 +32,7 @@ func NewCmdGroupLs(c *cmdcontext.Context) *cobra.Command {
 			t := table.NewWriter()
 			t.AppendHeader(table.Row{"#", "App Name", "Title"})
 			for _, data := range page.Data {
-				t.AppendRow([]interface{}{data.ID, data.AppName, data.Title})
+				t.AppendRow([]any{data.ID, data.AppName, data.Title})
 			}
 			fmt.Println(t.Render())
 		},

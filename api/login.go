@@ -2,8 +2,8 @@ package api
 
 import (
 	"fmt"
+
 	"github.com/tradlwa/xj/api/urlcodec"
-	"strings"
 )
 
 var ErrBadCredentials = fmt.Errorf("invalid username or password")
@@ -19,9 +19,8 @@ func Login(client *Client, username string, password string) error {
 		IfRemember: "on",
 	}
 
-	values := urlcodec.StructToValues(loginRequest)
 	var response BaseResponse
-	err := client.Post("login", strings.NewReader(values.Encode()), &response)
+	err := client.Post("login", urlcodec.StructToStringReader(loginRequest), &response)
 	if err != nil {
 		return err
 	}

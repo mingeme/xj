@@ -38,7 +38,7 @@ func NewCmdJobLs(c *cmdcontext.Context) *cobra.Command {
 			t := table.NewWriter()
 			t.AppendHeader(table.Row{"#", "Job Desc", "Executor Handler", "Job Cron", "Author", "Status"})
 			for _, data := range page.Data {
-				t.AppendRow([]interface{}{data.ID, data.JobDesc, data.ExecutorHandler, data.JobCron, data.Author, data.Status()})
+				t.AppendRow([]any{data.ID, data.JobDesc, data.ExecutorHandler, data.JobCron, data.Author, data.Status()})
 			}
 			fmt.Println(t.Render())
 		},

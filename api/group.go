@@ -2,7 +2,6 @@ package api
 
 import (
 	"github.com/tradlwa/xj/api/urlcodec"
-	"strings"
 )
 
 type GroupResponse struct {
@@ -33,9 +32,8 @@ func NewGroupOptions() *GroupOptions {
 }
 
 func GroupPage(client *Client, opts *GroupOptions) (*GroupResponse, error) {
-	values := urlcodec.StructToValues(opts)
 	var response GroupResponse
-	if err := client.Post("jobgroup/pageList", strings.NewReader(values.Encode()), &response); err != nil {
+	if err := client.Post("jobgroup/pageList", urlcodec.StructToStringReader(opts), &response); err != nil {
 		return nil, err
 	}
 	return &response, nil
