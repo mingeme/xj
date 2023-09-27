@@ -6,7 +6,7 @@ type BaseResponse struct {
 	Content string `json:"content"`
 }
 
-type PageResponse[T JobData] struct {
+type PageResponse[T JobData | GroupData] struct {
 	RecordsFiltered int `json:"recordsFiltered"`
 	RecordsTotal    int `json:"recordsTotal"`
 	Data            []T `json:"data"`

@@ -4,17 +4,13 @@ import (
 	"github.com/tradlwa/xj/api/urlcodec"
 )
 
-type GroupResponse struct {
-	RecordsFiltered int `json:"recordsFiltered"`
-	Data            []struct {
-		ID           int      `json:"id"`
-		AppName      string   `json:"appname"`
-		Title        string   `json:"title"`
-		AddressType  int      `json:"addressType"`
-		AddressList  string   `json:"addressList"`
-		RegistryList []string `json:"registryList"`
-	} `json:"data"`
-	RecordsTotal int `json:"recordsTotal"`
+type GroupData struct {
+	ID           int      `json:"id"`
+	AppName      string   `json:"appname"`
+	Title        string   `json:"title"`
+	AddressType  int      `json:"addressType"`
+	AddressList  string   `json:"addressList"`
+	RegistryList []string `json:"registryList"`
 }
 
 type GroupOptions struct {
@@ -31,8 +27,8 @@ func NewGroupOptions() *GroupOptions {
 	}
 }
 
-func GroupPage(client *Client, opts *GroupOptions) (*GroupResponse, error) {
-	var response GroupResponse
+func GroupPage(client *Client, opts *GroupOptions) (*PageResponse[GroupData], error) {
+	var response PageResponse[GroupData]
 	if err := client.Post("jobgroup/pageList", urlcodec.StructToStringReader(opts), &response); err != nil {
 		return nil, err
 	}
