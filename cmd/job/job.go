@@ -21,6 +21,7 @@ func NewCmdJob(c *cmdcontext.Context) *cobra.Command {
 	cmd.AddCommand(NewCmdJobTrigger(c))
 	cmd.AddCommand(NewCmdJobStart(c))
 	cmd.AddCommand(NewCmdJobStop(c))
+	cmd.AddCommand(NewCmdJobRemove(c))
 	return cmd
 }
 
@@ -114,6 +115,29 @@ func NewCmdJobStop(c *cmdcontext.Context) *cobra.Command {
 			}
 			if response.Code == 200 {
 				fmt.Println("it's stopped")
+			} else {
+				fmt.Printf("%v", response)
+			}
+		},
+	}
+	cmd.Flags().IntVarP(&opts.ID, "id", "i", -1, "job id")
+	_ = cmd.MarkFlagRequired("id")
+	return cmd
+}
+
+func NewCmdJobRemove(c *cmdcontext.Context) *cobra.Command {
+	opts := api.NewJobOptions()
+	cmd := &cobra.Command{
+		Use:   "rm",
+		Short: "remove job",
+		Run: func(cmd *cobra.Command, args []string) {
+			response, err := api.JobRemove(c.ApiClient(), opts)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "%v", err)
+				return
+			}
+			if response.Code == 200 {
+				fmt.Println("it's removed")
 			} else {
 				fmt.Printf("%v", response)
 			}
