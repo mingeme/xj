@@ -1,0 +1,44 @@
+version: "3"
+
+vars:
+  BIN: "{{.ROOT_DIR}}/bin"
+
+env:
+  CGO_ENABLED: "0"
+
+tasks:
+  default:
+    cmds:
+      - task: lint
+
+  install:
+    desc: Installs Task
+    aliases: [i]
+    sources:
+      - "./**/*.go"
+    cmds:
+      - go build -o xj ./
+      - mv xj {{.GOBIN}}
+
+  mod:
+    desc: Downloads and tidy Go modules
+    cmds:
+      - go mod download
+      - go mod tidy
+
+  lint:
+    desc: Runs golangci-lint
+    aliases: [l]
+    sources:
+      - "./**/*.go"
+      - .golangci.yml
+    cmds:
+      - golangci-lint run
+
+  lint:fix:
+    desc: Runs golangci-lint and fixes any issues
+    sources:
+      - "./**/*.go"
+      - .golangci.yml
+    cmds:
+      - golangci-lint run --fix
