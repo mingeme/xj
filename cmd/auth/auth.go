@@ -2,15 +2,16 @@ package auth
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/spf13/cobra"
 	"github.com/tradlwa/xj/api"
 	"github.com/tradlwa/xj/cmd/valid"
 	"github.com/tradlwa/xj/cmdcontext"
 	"github.com/tradlwa/xj/config"
-	"golang.org/x/crypto/ssh/terminal"
-	"os"
-	"os/signal"
-	"syscall"
+	"golang.org/x/term"
 )
 
 func NewCmdAuth(c *cmdcontext.Context) *cobra.Command {
@@ -45,19 +46,19 @@ func NewCmdAuth(c *cmdcontext.Context) *cobra.Command {
 }
 
 func getPassword(prompt string) (string, error) {
-	initialTermState, err := terminal.GetState(syscall.Stdin)
+	initialTermState, err := term.GetState(syscall.Stdin)
 	if err != nil {
 		return "", err
 	}
-	c := make(chan os.Signal)
-	signal.Notify(c, os.Interrupt, os.Kill)
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
 	go func() {
 		<-c
-		_ = terminal.Restore(syscall.Stdin, initialTermState)
+		_ = term.Restore(syscall.Stdin, initialTermState)
 		os.Exit(1)
 	}()
 	fmt.Print(prompt)
-	password, err := terminal.ReadPassword(syscall.Stdin)
+	password, err := term.ReadPassword(syscall.Stdin)
 	fmt.Println("")
 	if err != nil {
 		return "", err
