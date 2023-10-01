@@ -79,6 +79,6 @@ func JobStop(client *Client, opts *JobOptions) (*BaseResponse, error) {
 
 func JobRemove(client *Client, opts *JobOptions) (*BaseResponse, error) {
 	var response BaseResponse
-	err := client.Post("jobinfo/stop", urlcodec.StructToStringReader(opts), &response)
+	err := client.Post("jobinfo/remove", urlcodec.StructToStringReader(opts), &response)
 	return &response, err
 }
