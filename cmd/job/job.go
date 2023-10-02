@@ -79,7 +79,7 @@ func NewCmdJobTrigger(c *cmdcontext.Context) *cobra.Command {
 			}
 		},
 	}
-	cmd.Flags().StringVar(&opts.Param, "param", "", "job parameter")
+	cmd.Flags().StringVarP(&opts.Param, "param", "p", "", "job parameter")
 	return cmd
 }
 
