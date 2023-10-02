@@ -1,6 +1,6 @@
 # XXL-JOB CLI
 
-`xj` is XXL-JOB on the command line.
+`xj` is XXL-JOB on the command line. It based on XXL-JOB api version 2.2.0.
 
 ## Installation
 
