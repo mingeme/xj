@@ -7,6 +7,7 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
 	"github.com/tradlwa/xj/api"
+	"github.com/tradlwa/xj/cmd/valid"
 	"github.com/tradlwa/xj/cmdcontext"
 )
 
@@ -57,10 +58,15 @@ func NewCmdJobLs(c *cmdcontext.Context) *cobra.Command {
 func NewCmdJobTrigger(c *cmdcontext.Context) *cobra.Command {
 	opts := api.NewTriggerOptions()
 	cmd := &cobra.Command{
-		Use:     "trigger",
+		Use:     "trigger {<job-id>}",
 		Aliases: []string{"t"},
 		Short:   "trigger job",
+		Args:    valid.ExpectedArgs(),
 		Run: func(cmd *cobra.Command, args []string) {
+			if !parseJobId(&opts.ID, args[0]) {
+				return
+			}
+
 			response, err := api.TriggerJob(c.ApiClient(), opts)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "%v", err)
@@ -73,9 +79,7 @@ func NewCmdJobTrigger(c *cmdcontext.Context) *cobra.Command {
 			}
 		},
 	}
-	cmd.Flags().IntVarP(&opts.ID, "id", "i", -1, "job id")
 	cmd.Flags().StringVar(&opts.Param, "param", "", "job parameter")
-	_ = cmd.MarkFlagRequired("id")
 	return cmd
 }
 
@@ -83,8 +87,13 @@ func NewCmdJobStart(c *cmdcontext.Context) *cobra.Command {
 	opts := api.NewJobOptions()
 	cmd := &cobra.Command{
 		Use:   "start",
-		Short: "start job",
+		Short: "start job {<job-id>}",
+		Args:  valid.ExpectedArgs(),
 		Run: func(cmd *cobra.Command, args []string) {
+			if !parseJobId(&opts.ID, args[0]) {
+				return
+			}
+
 			response, err := api.JobStart(c.ApiClient(), opts)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "%v", err)
@@ -97,8 +106,6 @@ func NewCmdJobStart(c *cmdcontext.Context) *cobra.Command {
 			}
 		},
 	}
-	cmd.Flags().IntVarP(&opts.ID, "id", "i", -1, "job id")
-	_ = cmd.MarkFlagRequired("id")
 	return cmd
 }
 
@@ -106,8 +113,13 @@ func NewCmdJobStop(c *cmdcontext.Context) *cobra.Command {
 	opts := api.NewJobOptions()
 	cmd := &cobra.Command{
 		Use:   "stop",
-		Short: "stop job",
+		Short: "stop job {<job-id>}",
+		Args:  valid.ExpectedArgs(),
 		Run: func(cmd *cobra.Command, args []string) {
+			if !parseJobId(&opts.ID, args[0]) {
+				return
+			}
+
 			response, err := api.JobStop(c.ApiClient(), opts)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "%v", err)
@@ -120,8 +132,6 @@ func NewCmdJobStop(c *cmdcontext.Context) *cobra.Command {
 			}
 		},
 	}
-	cmd.Flags().IntVarP(&opts.ID, "id", "i", -1, "job id")
-	_ = cmd.MarkFlagRequired("id")
 	return cmd
 }
 
@@ -129,8 +139,13 @@ func NewCmdJobRemove(c *cmdcontext.Context) *cobra.Command {
 	opts := api.NewJobOptions()
 	cmd := &cobra.Command{
 		Use:   "rm",
-		Short: "remove job",
+		Short: "remove job {<job-id>}",
+		Args:  valid.ExpectedArgs(),
 		Run: func(cmd *cobra.Command, args []string) {
+			if !parseJobId(&opts.ID, args[0]) {
+				return
+			}
+
 			response, err := api.JobRemove(c.ApiClient(), opts)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "%v", err)
@@ -143,7 +158,15 @@ func NewCmdJobRemove(c *cmdcontext.Context) *cobra.Command {
 			}
 		},
 	}
-	cmd.Flags().IntVarP(&opts.ID, "id", "i", -1, "job id")
-	_ = cmd.MarkFlagRequired("id")
 	return cmd
+}
+
+func parseJobId(id *int, arg string) bool {
+	val, err := valid.RequireInt(arg)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "required argument <job-id> '%s' should be int", arg)
+		return false
+	}
+	*id = val
+	return true
 }

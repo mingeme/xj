@@ -2,9 +2,11 @@ package valid
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"regexp"
+	"strconv"
 	"strings"
+
+	"github.com/spf13/cobra"
 )
 
 var mustArgsRe = regexp.MustCompile("<(.*?)>")
@@ -19,4 +21,11 @@ func ExpectedArgs() cobra.PositionalArgs {
 		joined := strings.Join(missingArgs, ", ")
 		return fmt.Errorf(`required argument(s) "%s" not set`, joined)
 	}
+}
+
+func RequireInt(arg string) (int, error) {
+	if val, err := strconv.Atoi(arg); err == nil {
+		return val, nil
+	}
+	return 0, fmt.Errorf("require int argument: %s", arg)
 }
