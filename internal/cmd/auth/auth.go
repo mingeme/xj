@@ -7,10 +7,10 @@ import (
 	"syscall"
 
 	"github.com/spf13/cobra"
-	"github.com/tradlwa/xj/api"
-	"github.com/tradlwa/xj/cmd/valid"
-	"github.com/tradlwa/xj/cmdcontext"
-	"github.com/tradlwa/xj/config"
+	"github.com/tradlwa/xj/internal/api"
+	"github.com/tradlwa/xj/internal/cmd/valid"
+	"github.com/tradlwa/xj/internal/cmdcontext"
+	"github.com/tradlwa/xj/internal/config"
 	"golang.org/x/term"
 )
 

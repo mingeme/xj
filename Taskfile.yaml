@@ -17,8 +17,7 @@ tasks:
     sources:
       - "./**/*.go"
     cmds:
-      - go build -o xj ./
-      - mv xj {{.GOBIN}}
+      - go install ./cmd/xj
 
   mod:
     desc: Downloads and tidy Go modules

@@ -6,9 +6,9 @@ import (
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
-	"github.com/tradlwa/xj/api"
-	"github.com/tradlwa/xj/cmd/valid"
-	"github.com/tradlwa/xj/cmdcontext"
+	"github.com/tradlwa/xj/internal/api"
+	"github.com/tradlwa/xj/internal/cmd/valid"
+	"github.com/tradlwa/xj/internal/cmdcontext"
 )
 
 func NewCmdJob(c *cmdcontext.Context) *cobra.Command {

@@ -2,9 +2,10 @@ package cmdcontext
 
 import (
 	"fmt"
-	"github.com/tradlwa/xj/api"
-	"github.com/tradlwa/xj/config"
 	"os"
+
+	"github.com/tradlwa/xj/internal/api"
+	"github.com/tradlwa/xj/internal/config"
 )
 
 type Context struct {

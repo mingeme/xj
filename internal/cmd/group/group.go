@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
-	"github.com/tradlwa/xj/api"
-	"github.com/tradlwa/xj/cmdcontext"
+	"github.com/tradlwa/xj/internal/api"
+	"github.com/tradlwa/xj/internal/cmdcontext"
 )
 
 func NewCmdGroup(c *cmdcontext.Context) *cobra.Command {

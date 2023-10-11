@@ -28,7 +28,7 @@ See here [go-task installation](https://taskfile.dev/installation/)
 #### Unix-like systems
 
 ```sh
-$ task install
+$ go install github.com/tradlwa/xj/cmd/xj
 ```
 
 5. Run `xj` to check if it installed

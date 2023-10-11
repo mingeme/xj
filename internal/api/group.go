@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/tradlwa/xj/api/urlcodec"
+	"github.com/tradlwa/xj/internal/api/urlcodec"
 )
 
 type GroupData struct {

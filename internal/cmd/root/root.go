@@ -2,11 +2,12 @@ package root
 
 import (
 	"fmt"
+
 	"github.com/spf13/cobra"
-	"github.com/tradlwa/xj/cmd/auth"
-	"github.com/tradlwa/xj/cmd/group"
-	"github.com/tradlwa/xj/cmd/job"
-	"github.com/tradlwa/xj/cmdcontext"
+	"github.com/tradlwa/xj/internal/cmd/auth"
+	"github.com/tradlwa/xj/internal/cmd/group"
+	"github.com/tradlwa/xj/internal/cmd/job"
+	"github.com/tradlwa/xj/internal/cmdcontext"
 )
 
 func NewCmdRoot(c *cmdcontext.Context) *cobra.Command {
