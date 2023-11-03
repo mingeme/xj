@@ -8,7 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/tradlwa/xj/internal/api"
-	"github.com/tradlwa/xj/internal/cmd/valid"
+	"github.com/tradlwa/xj/internal/cmd/validator"
 	"github.com/tradlwa/xj/internal/cmdcontext"
 	"github.com/tradlwa/xj/internal/config"
 	"golang.org/x/term"
@@ -18,7 +18,7 @@ func NewCmdAuth(c *cmdcontext.Context) *cobra.Command {
 	command := &cobra.Command{
 		Use:   "auth {<domain> <username>}",
 		Short: "Authenticate for domain",
-		Args:  valid.ExpectedArgs(),
+		Args:  validator.ExpectedArgs(),
 		Run: func(cmd *cobra.Command, args []string) {
 			password, err := getPassword("Your password: ")
 			if err != nil {

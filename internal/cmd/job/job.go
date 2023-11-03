@@ -7,7 +7,7 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
 	"github.com/tradlwa/xj/internal/api"
-	"github.com/tradlwa/xj/internal/cmd/valid"
+	"github.com/tradlwa/xj/internal/cmd/validator"
 	"github.com/tradlwa/xj/internal/cmdcontext"
 )
 
@@ -61,7 +61,7 @@ func NewCmdJobTrigger(c *cmdcontext.Context) *cobra.Command {
 		Use:     "trigger {<job-id>}",
 		Aliases: []string{"t"},
 		Short:   "trigger job",
-		Args:    valid.ExpectedArgs(),
+		Args:    validator.ExpectedArgs(),
 		Run: func(cmd *cobra.Command, args []string) {
 			if !parseJobId(&opts.ID, args[0]) {
 				return
@@ -88,7 +88,7 @@ func NewCmdJobStart(c *cmdcontext.Context) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "start",
 		Short: "start job {<job-id>}",
-		Args:  valid.ExpectedArgs(),
+		Args:  validator.ExpectedArgs(),
 		Run: func(cmd *cobra.Command, args []string) {
 			if !parseJobId(&opts.ID, args[0]) {
 				return
@@ -114,7 +114,7 @@ func NewCmdJobStop(c *cmdcontext.Context) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "stop",
 		Short: "stop job {<job-id>}",
-		Args:  valid.ExpectedArgs(),
+		Args:  validator.ExpectedArgs(),
 		Run: func(cmd *cobra.Command, args []string) {
 			if !parseJobId(&opts.ID, args[0]) {
 				return
@@ -140,7 +140,7 @@ func NewCmdJobRemove(c *cmdcontext.Context) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "rm",
 		Short: "remove job {<job-id>}",
-		Args:  valid.ExpectedArgs(),
+		Args:  validator.ExpectedArgs(),
 		Run: func(cmd *cobra.Command, args []string) {
 			if !parseJobId(&opts.ID, args[0]) {
 				return
@@ -162,7 +162,7 @@ func NewCmdJobRemove(c *cmdcontext.Context) *cobra.Command {
 }
 
 func parseJobId(id *int, arg string) bool {
-	val, err := valid.RequireInt(arg)
+	val, err := validator.RequireInt(arg)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "required argument <job-id> '%s' should be int", arg)
 		return false

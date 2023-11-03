@@ -51,9 +51,7 @@ func ReadConfig() (*EnvConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &EnvConfig{
-		envMap,
-	}, nil
+	return &EnvConfig{envMap}, nil
 }
 
 func WriteConfig(c *EnvConfig) error {
