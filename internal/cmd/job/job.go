@@ -63,6 +63,7 @@ func NewCmdJobLs(c *cmdcontext.Context) *cobra.Command {
 
 func NewCmdJobTrigger(c *cmdcontext.Context) *cobra.Command {
 	opts := api.NewTriggerOptions()
+	var nav bool
 	cmd := &cobra.Command{
 		Use:     "trigger {<job-id>}",
 		Aliases: []string{"t"},
@@ -71,6 +72,9 @@ func NewCmdJobTrigger(c *cmdcontext.Context) *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			if !parseJobId(&opts.ID, args[0]) {
 				return
+			}
+			if nav {
+				fmt.Println(c.JobLog(opts.ID))
 			}
 
 			response, err := api.TriggerJob(c.ApiClient(), opts)
@@ -86,6 +90,7 @@ func NewCmdJobTrigger(c *cmdcontext.Context) *cobra.Command {
 		},
 	}
 	cmd.Flags().StringVarP(&opts.Param, "param", "p", "", "job parameter")
+	cmd.Flags().BoolVar(&nav, "nav", false, "show navigation")
 	return cmd
 }
 

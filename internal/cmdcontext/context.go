@@ -24,7 +24,11 @@ func (c *Context) Domain() string {
 }
 
 func (c *Context) JobInfo() string {
-	return c.Domain() + "xxl-job-admin/jobinfo";
+	return c.Domain() + "xxl-job-admin/jobinfo"
+}
+
+func (c *Context) JobLog(id int) string {
+	return c.Domain() + "xxl-job-admin/joblog?jobId=" + string(id)
 }
 
 func (c *Context) ApiClient() *api.Client {
