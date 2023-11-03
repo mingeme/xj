@@ -28,10 +28,14 @@ func NewCmdJob(c *cmdcontext.Context) *cobra.Command {
 
 func NewCmdJobLs(c *cmdcontext.Context) *cobra.Command {
 	opts := api.NewJobOptions()
+	var nav bool
 	cmd := &cobra.Command{
 		Use:   "ls",
 		Short: "search job",
 		Run: func(cmd *cobra.Command, args []string) {
+			if nav {
+				fmt.Println(c.JobInfo())
+			}
 			page, err := api.JobPage(c.ApiClient(), opts)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "%v", err)
@@ -45,12 +49,14 @@ func NewCmdJobLs(c *cmdcontext.Context) *cobra.Command {
 			fmt.Println(t.Render())
 		},
 	}
+
 	cmd.Flags().StringVarP(&opts.Handler, "handler", "x", "", "executor handler")
 	cmd.Flags().StringVarP(&opts.Desc, "desc", "d", "", "job description")
 	cmd.Flags().IntVarP(&opts.Group, "group", "g", 0, "job group")
 	cmd.Flags().IntVarP(&opts.Status, "status", "", 0, "job status (o/off 1/on)")
 	cmd.Flags().IntVarP(&opts.Start, "start", "s", 0, "page start")
 	cmd.Flags().IntVarP(&opts.Length, "len", "l", 10, "page length")
+	cmd.Flags().BoolVar(&nav, "nav", false, "show navigation")
 
 	return cmd
 }

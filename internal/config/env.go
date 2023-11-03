@@ -41,7 +41,7 @@ func EnvFile() string {
 
 func ReadConfig() (*EnvConfig, error) {
 	_, err := os.Stat(EnvFile())
-	if err != nil && os.IsNotExist(err) {
+	if os.IsNotExist(err) {
 		return &EnvConfig{envMap: make(map[string]string)}, nil
 	}
 	if err != nil {
