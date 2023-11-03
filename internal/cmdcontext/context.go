@@ -3,6 +3,7 @@ package cmdcontext
 import (
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/tradlwa/xj/internal/api"
 	"github.com/tradlwa/xj/internal/config"
@@ -28,7 +29,7 @@ func (c *Context) JobInfo() string {
 }
 
 func (c *Context) JobLog(id int) string {
-	return c.Domain() + "xxl-job-admin/joblog?jobId=" + string(id)
+	return c.Domain() + "xxl-job-admin/joblog?jobId=" + strconv.Itoa(id)
 }
 
 func (c *Context) ApiClient() *api.Client {
