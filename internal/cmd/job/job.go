@@ -56,7 +56,7 @@ func NewCmdJobLs(c *cmdcontext.Context) *cobra.Command {
 	cmd.Flags().IntVarP(&opts.Status, "status", "", 0, "job status (o/off 1/on)")
 	cmd.Flags().IntVarP(&opts.Start, "start", "s", 0, "page start")
 	cmd.Flags().IntVarP(&opts.Length, "len", "l", 10, "page length")
-	cmd.Flags().BoolVar(&nav, "nav", false, "show navigation")
+	cmd.Flags().BoolVar(&nav, "nav", true, "show navigation")
 
 	return cmd
 }
@@ -90,7 +90,7 @@ func NewCmdJobTrigger(c *cmdcontext.Context) *cobra.Command {
 		},
 	}
 	cmd.Flags().StringVarP(&opts.Param, "param", "p", "", "job parameter")
-	cmd.Flags().BoolVar(&nav, "nav", false, "show navigation")
+	cmd.Flags().BoolVar(&nav, "nav", true, "show navigation")
 	return cmd
 }
 
