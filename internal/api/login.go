@@ -3,7 +3,7 @@ package api
 import (
 	"fmt"
 
-	"github.com/tradlwa/xj/internal/api/urlcodec"
+	"github.com/heminghu/xj/internal/api/urlcodec"
 )
 
 var ErrBadCredentials = fmt.Errorf("invalid username or password")

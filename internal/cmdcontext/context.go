@@ -5,8 +5,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/tradlwa/xj/internal/api"
-	"github.com/tradlwa/xj/internal/config"
+	"github.com/heminghu/xj/internal/api"
+	"github.com/heminghu/xj/internal/config"
 )
 
 type Context struct {

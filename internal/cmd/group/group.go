@@ -2,10 +2,10 @@ package group
 
 import (
 	"fmt"
+	"github.com/heminghu/xj/internal/api"
+	"github.com/heminghu/xj/internal/cmdcontext"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
-	"github.com/tradlwa/xj/internal/api"
-	"github.com/tradlwa/xj/internal/cmdcontext"
 )
 
 func NewCmdGroup(c *cmdcontext.Context) *cobra.Command {

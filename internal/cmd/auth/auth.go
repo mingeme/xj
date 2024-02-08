@@ -6,11 +6,11 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/heminghu/xj/internal/api"
+	"github.com/heminghu/xj/internal/cmd/validator"
+	"github.com/heminghu/xj/internal/cmdcontext"
+	"github.com/heminghu/xj/internal/config"
 	"github.com/spf13/cobra"
-	"github.com/tradlwa/xj/internal/api"
-	"github.com/tradlwa/xj/internal/cmd/validator"
-	"github.com/tradlwa/xj/internal/cmdcontext"
-	"github.com/tradlwa/xj/internal/config"
 	"golang.org/x/term"
 )
 

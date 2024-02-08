@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/tradlwa/xj/internal/config"
+	"github.com/heminghu/xj/internal/config"
 	"net/http"
 	"os"
 )

@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/tradlwa/xj/internal/cmd/root"
-	"github.com/tradlwa/xj/internal/cmdcontext"
-	"github.com/tradlwa/xj/internal/config"
+	"github.com/heminghu/xj/internal/cmd/root"
+	"github.com/heminghu/xj/internal/cmdcontext"
+	"github.com/heminghu/xj/internal/config"
 )
 
 func main() {

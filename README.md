@@ -15,7 +15,7 @@ $ go version
 2. Clone this repository
 
 ```sh
-$ git clone https://github.com/tradlwa/xxljob-cli.git
+$ git clone https://github.com/heminghu/xxljob-cli.git
 $ cd xxljob-cli
 ```
 
@@ -28,7 +28,7 @@ See here [go-task installation](https://taskfile.dev/installation/)
 #### Unix-like systems
 
 ```sh
-$ go install github.com/tradlwa/xj/cmd/xj@latest
+$ go install github.com/heminghu/xj/cmd/xj@latest
 ```
 
 5. Run `xj` to check if it installed

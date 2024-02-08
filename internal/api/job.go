@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/tradlwa/xj/internal/api/urlcodec"
+	"github.com/heminghu/xj/internal/api/urlcodec"
 )
 
 type JobData struct {

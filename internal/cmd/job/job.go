@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/heminghu/xj/internal/api"
+	"github.com/heminghu/xj/internal/cmd/validator"
+	"github.com/heminghu/xj/internal/cmdcontext"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
-	"github.com/tradlwa/xj/internal/api"
-	"github.com/tradlwa/xj/internal/cmd/validator"
-	"github.com/tradlwa/xj/internal/cmdcontext"
 )
 
 func NewCmdJob(c *cmdcontext.Context) *cobra.Command {

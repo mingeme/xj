@@ -1,4 +1,4 @@
-module github.com/tradlwa/xj
+module github.com/heminghu/xj
 
 go 1.21
 
